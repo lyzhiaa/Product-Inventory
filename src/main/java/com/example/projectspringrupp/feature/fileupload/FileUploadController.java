@@ -1,0 +1,27 @@
+package com.example.projectspringrupp.feature.fileupload;
+
+import com.example.projectspringrupp.feature.fileupload.dto.FileUploadResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/upload")
+public class FileUploadController {
+    private final FileUploadService fileUploadService;
+    //upload single file
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    FileUploadResponse upload(@RequestPart MultipartFile file) {
+        return fileUploadService.upload(file);
+    }
+
+    // Delete file
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{fileName}")
+    void deleteByFileName(@PathVariable String fileName) {
+        fileUploadService.deleteByFileName(fileName);
+    }
+}
