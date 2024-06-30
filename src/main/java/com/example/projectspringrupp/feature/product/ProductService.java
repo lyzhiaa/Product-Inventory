@@ -11,7 +11,7 @@ public interface ProductService {
     ProductResponse createNewProduct(ProductCreateRequest productCreateRequest);
 
     // find all product
-    List<ProductResponse> findAllProduct();
+    List<ProductResponse> findAllProduct(int page, int size);
 
     //Find product by name
     ProductResponse findProductByName(String productName);

@@ -29,8 +29,9 @@ public class ProductController {
 
     //find all product
     @GetMapping
-    List<ProductResponse> findAllProduct() {
-        return productService.findAllProduct();
+    List<ProductResponse> findAllProduct(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size) {
+        return productService.findAllProduct(page, size);
     }
 
     //update product

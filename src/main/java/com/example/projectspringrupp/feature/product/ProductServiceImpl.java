@@ -6,6 +6,9 @@ import com.example.projectspringrupp.feature.product.dto.ProductResponse;
 import com.example.projectspringrupp.feature.product.dto.ProductUpdateRequest;
 import com.example.projectspringrupp.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,9 +48,10 @@ public class ProductServiceImpl implements ProductService{
 
     // Find all product
     @Override
-    public List<ProductResponse> findAllProduct() {
-        List<Product> products = productRepository.findAll();
-        return productMapper.toProductResponseList(products);
+    public List<ProductResponse> findAllProduct(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = productRepository.findAll(pageable);
+        return productMapper.toProductResponseList(products.getContent());
     }
 
     // Find product by name
