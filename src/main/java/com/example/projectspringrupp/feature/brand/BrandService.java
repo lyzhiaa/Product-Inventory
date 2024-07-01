@@ -9,7 +9,7 @@ public interface BrandService {
     // Create brand
     BrandResponse createBrand(BrandCreateRequest brandCreateRequest);
     //find all brand
-    List<BrandResponse> findAllBrand();
+    List<BrandResponse> findAllBrand(int page, int size);
     // find brand by name
     BrandResponse findBrandByName(String brandName);
     // Update brand

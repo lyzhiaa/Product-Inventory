@@ -10,7 +10,7 @@ public interface SupplierService {
     // Create supplier by phone number
     SupplierResponse createSupplier(SupplierCreateRequest supplierCreateRequest);
     // Find all supplier
-    List<SupplierResponse> findAllSupplier();
+    List<SupplierResponse> findAllSupplier(int page, int size);
     // Find supplier by phone number
     SupplierResponse findSupplierByPhone(String phone);
     // Update supplier

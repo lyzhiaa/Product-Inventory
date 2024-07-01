@@ -29,8 +29,9 @@ public class SupplierController {
 
     //find all supplier
     @GetMapping
-    List<SupplierResponse> findAllSupplier() {
-        return supplierService.findAllSupplier();
+    List<SupplierResponse> findAllSupplier(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size) {
+        return supplierService.findAllSupplier(page, size);
     }
 
     //update supplier

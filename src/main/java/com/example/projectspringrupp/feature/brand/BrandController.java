@@ -32,8 +32,9 @@ public class BrandController {
 
     //find all brand
     @GetMapping
-    List<BrandResponse> findAllBrand() {
-        return brandService.findAllBrand();
+    List<BrandResponse> findAllBrand(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int size) {
+        return brandService.findAllBrand(page, size);
     }
 
     //update brand

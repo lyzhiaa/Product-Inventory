@@ -6,6 +6,9 @@ import com.example.projectspringrupp.feature.supplier.dto.SupplierResponse;
 import com.example.projectspringrupp.feature.supplier.dto.SupplierUpdateRequest;
 import com.example.projectspringrupp.mapper.SupplierMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -43,9 +46,10 @@ public class SupplierServiceImpl implements SupplierService {
 
     // find all supplier
     @Override
-    public List<SupplierResponse> findAllSupplier() {
-        List<Supplier> suppliers = supplierRepository.findAll();
-        return supplierMapper.toSupplierResponseList(suppliers);
+    public List<SupplierResponse> findAllSupplier(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Supplier> suppliers = supplierRepository.findAll(pageable);
+        return supplierMapper.toSupplierResponseList(suppliers.getContent());
     }
 
     // find supplier by phone number

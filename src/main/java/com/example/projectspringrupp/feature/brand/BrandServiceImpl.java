@@ -6,6 +6,9 @@ import com.example.projectspringrupp.feature.brand.dto.BrandCreateRequest;
 import com.example.projectspringrupp.feature.brand.dto.BrandResponse;
 import com.example.projectspringrupp.mapper.BrandMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,9 +43,10 @@ public class BrandServiceImpl implements BrandService {
 
     //find all product
     @Override
-    public List<BrandResponse> findAllBrand() {
-        List<Brand> brands = brandRepository.findAll();
-        return brandMapper.toBrandResponseList(brands);
+    public List<BrandResponse> findAllBrand(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Brand> brands = brandRepository.findAll(pageable);
+        return brandMapper.toBrandResponseList(brands.getContent());
     }
 
     // find single product
