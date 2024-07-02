@@ -9,6 +9,12 @@ public record ProductCreateRequest(
         String description,
         Integer quantity,
         BigDecimal basePrice,
-        BigDecimal salePrice
+        BigDecimal salePrice,
+        String brandName,
+        String categoryName,
+
+        Long userId,
+
+        String supplierName
 ) {
 }

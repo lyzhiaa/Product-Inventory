@@ -4,6 +4,7 @@ import com.example.projectspringrupp.domain.Category;
 import com.example.projectspringrupp.feature.category.dto.CategoryCreateRequest;
 import com.example.projectspringrupp.feature.category.dto.CategoryResponse;
 import com.example.projectspringrupp.mapper.CategoryMapper;
+import com.example.projectspringrupp.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+    private final ProductMapper productMapper;
     //Create Category
     @Override
     public CategoryResponse createCategory(CategoryCreateRequest categoryCreateRequest) {

@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  api-project:
+    container_name: api-project
+    image: api-project:1.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - '9091:8080'   #follow you port
+volumes:
+  db_data:

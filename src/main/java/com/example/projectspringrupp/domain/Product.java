@@ -23,8 +23,19 @@ public class Product {
     private BigDecimal basePrice;
     private BigDecimal salePrice;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
     private Brand brand;
+
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 }

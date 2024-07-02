@@ -1,9 +1,13 @@
 package com.example.projectspringrupp.feature.product;
 
-import com.example.projectspringrupp.domain.Product;
+import com.example.projectspringrupp.domain.*;
+import com.example.projectspringrupp.feature.brand.BrandRepository;
+import com.example.projectspringrupp.feature.category.CategoryRepository;
 import com.example.projectspringrupp.feature.product.dto.ProductCreateRequest;
 import com.example.projectspringrupp.feature.product.dto.ProductResponse;
 import com.example.projectspringrupp.feature.product.dto.ProductUpdateRequest;
+import com.example.projectspringrupp.feature.supplier.SupplierRepository;
+import com.example.projectspringrupp.feature.user.UserRepository;
 import com.example.projectspringrupp.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,26 +23,47 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final BrandRepository brandRepository;
+    private final SupplierRepository supplierRepository;
+    private final UserRepository userRepository;
     private final ProductMapper productMapper;
 
     // Create product
     @Override
     public ProductResponse createNewProduct(ProductCreateRequest productCreateRequest) {
+
+        Product product = productMapper.fromProductCreateRequest(productCreateRequest);
+
         // validate product name
         if (productRepository.existsByProductName(productCreateRequest.productName())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "This product is already exist!");
         }
+
+        Supplier supplier = supplierRepository.findByFirstname(productCreateRequest.supplierName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "This Supplier is not found!"));
+
+
+        Category category = categoryRepository.findByCategoryName(productCreateRequest.categoryName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "This category is not found!"));
+
+        Brand brand = brandRepository.findByBrandName(productCreateRequest.brandName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "This brand is not found!"));
+
+
+
         // transfer DTO domain model
-        Product product = productMapper.fromProductCreateRequest(productCreateRequest);
-        product = productRepository.save(product);
+
 
         // system generate date
-        product.setProductName(product.getProductName());
-        product.setDescription((product.getDescription()));
-        product.setQuantity(product.getQuantity());
-        product.setBasePrice(product.getBasePrice());
-        product.setSalePrice(product.getSalePrice());
+        product.setCategory(category);
+        product.setBrand(brand);
+        product.setSupplier(supplier);
+
 
         // save product to database
         product = productRepository.save(product);
