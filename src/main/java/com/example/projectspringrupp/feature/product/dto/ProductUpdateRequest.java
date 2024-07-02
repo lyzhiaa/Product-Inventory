@@ -1,7 +1,9 @@
 package com.example.projectspringrupp.feature.product.dto;
 
-import java.math.BigDecimal;
+import lombok.Builder;
 
+import java.math.BigDecimal;
+@Builder
 public record ProductUpdateRequest(
         String productName,
         String description,

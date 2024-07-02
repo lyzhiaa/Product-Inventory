@@ -17,7 +17,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
     private String productName;
-    @Column(columnDefinition = "TEXT DEFAULT 'Invalid name'")
+
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Integer quantity;
     private BigDecimal basePrice;

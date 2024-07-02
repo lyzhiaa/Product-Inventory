@@ -2,7 +2,9 @@ package com.example.projectspringrupp.feature.user.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 
+@Builder
 public record UserUpdateRequest(
         @NotBlank(message = "Phone is require!")
         String userPhone,
