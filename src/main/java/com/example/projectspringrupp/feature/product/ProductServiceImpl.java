@@ -41,18 +41,18 @@ public class ProductServiceImpl implements ProductService{
                     "This product is already exist!");
         }
 
-        Supplier supplier = supplierRepository.findByFirstname(productCreateRequest.supplierName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "This Supplier is not found!"));
-
-
-        Category category = categoryRepository.findByCategoryName(productCreateRequest.categoryName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "This category is not found!"));
-
-        Brand brand = brandRepository.findByBrandName(productCreateRequest.brandName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "This brand is not found!"));
+//        Supplier supplier = supplierRepository.findByFirstname(productCreateRequest.supplierName())
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+//                "This Supplier is not found!"));
+//
+//
+//        Category category = categoryRepository.findByCategoryName(productCreateRequest.categoryName())
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+//                        "This category is not found!"));
+//
+//        Brand brand = brandRepository.findByBrandName(productCreateRequest.brandName())
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+//                        "This brand is not found!"));
 
 
 
@@ -60,9 +60,9 @@ public class ProductServiceImpl implements ProductService{
 
 
         // system generate date
-        product.setCategory(category);
-        product.setBrand(brand);
-        product.setSupplier(supplier);
+//        product.setCategory(category);
+//        product.setBrand(brand);
+//        product.setSupplier(supplier);
 
 
         // save product to database
