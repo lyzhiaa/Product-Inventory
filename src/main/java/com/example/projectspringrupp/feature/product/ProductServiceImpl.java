@@ -9,6 +9,7 @@ import com.example.projectspringrupp.feature.product.dto.ProductUpdateRequest;
 import com.example.projectspringrupp.feature.supplier.SupplierRepository;
 import com.example.projectspringrupp.feature.user.UserRepository;
 import com.example.projectspringrupp.mapper.ProductMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,8 +43,7 @@ public class ProductServiceImpl implements ProductService{
         }
 
         Supplier supplier = supplierRepository.findByFirstname(productCreateRequest.supplierName())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "This Supplier is not found!"));
+                .orElse(null);
 
 
         Category category = categoryRepository.findByCategoryName(productCreateRequest.categoryName())
@@ -54,9 +54,6 @@ public class ProductServiceImpl implements ProductService{
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "This brand is not found!"));
 
-
-
-        // transfer DTO domain model
 
 
         // system generate date
@@ -76,7 +73,17 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductResponse> findAllProduct(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products = productRepository.findAll(pageable);
-        return productMapper.toProductResponseList(products.getContent());
+        return products.stream().map(productMapper::toProductResponse).toList();
+    }
+
+    @Override
+    public List<ProductResponse> allProduct() {
+
+        var productProjections = productRepository.findAll();
+
+        return productProjections.stream()
+                .map(productMapper::toProductResponse)
+                .toList();
     }
 
     // Find product by name

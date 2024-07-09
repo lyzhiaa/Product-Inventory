@@ -1,11 +1,16 @@
 package com.example.projectspringrupp.domain;
 
+import com.example.projectspringrupp.domain.Brand;
+import com.example.projectspringrupp.domain.Category;
+import com.example.projectspringrupp.domain.Supplier;
+import com.example.projectspringrupp.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,19 +29,17 @@ public class Product {
     private BigDecimal basePrice;
     private BigDecimal salePrice;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Supplier supplier;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 }

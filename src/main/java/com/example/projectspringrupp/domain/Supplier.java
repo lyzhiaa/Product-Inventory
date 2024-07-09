@@ -18,4 +18,8 @@ public class Supplier {
     private String lastname;
     private String supplierPhone;
     private String address;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

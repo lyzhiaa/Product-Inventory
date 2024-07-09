@@ -28,11 +28,11 @@ public class ProductController {
     }
 
     //find all product
-    @GetMapping
-    List<ProductResponse> findAllProduct(@RequestParam(defaultValue = "0") int page,
-                                         @RequestParam(defaultValue = "10") int size) {
-        return productService.findAllProduct(page, size);
-    }
+//    @GetMapping
+//    List<ProductResponse> findAllProduct(@RequestParam(defaultValue = "0") int page,
+//                                         @RequestParam(defaultValue = "10") int size) {
+//        return productService.findAllProduct(page, size);
+//    }
 
     //update product
     @PatchMapping("/{name}")
@@ -45,5 +45,11 @@ public class ProductController {
     @DeleteMapping("/{name}")
     void deleteByName(@Valid @PathVariable String name) {
         productService.deleteProduct(name);
+    }
+
+    //find all product
+    @GetMapping
+    List<ProductResponse> allProduct() {
+        return productService.allProduct();
     }
 }

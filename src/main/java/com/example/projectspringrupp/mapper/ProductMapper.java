@@ -11,14 +11,18 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "Spring")
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
+
     @Mapping(target = "categoryName", source = "category.categoryName")
     @Mapping(target = "brandName", source = "brand.brandName")
     @Mapping(target = "supplierName", source = "supplier.firstname")
-    @Named("toProductResponse")
     ProductResponse toProductResponse(Product product);
+
     Product fromProductCreateRequest(ProductCreateRequest productCreateRequest);
+
     List<ProductResponse> toProductResponseList(List<Product> products);
+
     void fromProductUpdateRequest(ProductUpdateRequest productUpdateRequest, @MappingTarget Product product);
 }
+

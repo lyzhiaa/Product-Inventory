@@ -13,6 +13,9 @@ public interface ProductService {
     // find all product
     List<ProductResponse> findAllProduct(int page, int size);
 
+    List<ProductResponse> allProduct();
+
+
     //Find product by name
     ProductResponse findProductByName(String productName);
 
